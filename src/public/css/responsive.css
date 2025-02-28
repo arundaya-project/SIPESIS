@@ -1,0 +1,421 @@
+/* ===== MOBILE FIRST APPROACH ===== */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* Base container styling */
+.container {
+  padding: 8px;
+  width: 100%;
+}
+
+.card {
+  margin-bottom: 16px;
+}
+
+.card-body {
+  padding: 12px;
+}
+
+/* ===== TABLE RESPONSIVE CARD VIEW ===== */
+.table-responsive {
+  overflow-x: hidden !important;
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+  min-width: auto !important;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Mobile view - transform table to cards */
+@media (max-width: 767px) {
+  .table thead {
+    display: none;
+  }
+  
+  .table tbody tr {
+    display: block;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .table tbody tr.report-card {
+    display: block;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    background: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1); /* Enhanced shadow */
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  /* Style for Show More/Less button row */
+  .table tbody tr.show-more-row,
+  .table tbody tr.show-less-row {
+    display: block;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    margin: 20px 0;
+    padding: 0;
+  }
+  
+  .table tbody tr.show-more-row td,
+  .table tbody tr.show-less-row td {
+    background: transparent;
+    padding: 0;
+    border: none;
+  }
+  
+  .table tbody tr.show-more-row .btn,
+  .table tbody tr.show-less-row .btn {
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 14px;
+    width: auto;
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .table td {
+    display: block;
+    text-align: left;
+    padding: 10px 12px;
+    border: none;
+    width: 100%;
+  }
+  
+  .table td:not(:last-child) {
+    border-bottom: 1px solid #f5f5f5;
+  }
+  
+  /* Add data labels */
+  .table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  /* Specialized TD styling */
+  .table td[data-label="Tanggal"] .date-full {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .table td[data-label="Siswa"] .student-info {
+    border-left: 3px solid var(--primary);
+    padding-left: 8px;
+  }
+
+  .table td[data-label="Siswa"] .student-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .table td[data-label="Siswa"] .student-details {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .table td[data-label="Laporan"] .report-title {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .table td[data-label="Laporan"] .report-description {
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .table td[data-label="Aksi"] {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  
+  /* Fix button groups in tables */
+  .table td[data-label="Aksi"] .btn-group {
+    display: flex !important;
+    width: 100%;
+  }
+  
+  .table td[data-label="Aksi"] .btn {
+    flex: 1;
+    font-size: 13px;
+    padding: 8px;
+  }
+}
+
+/* ===== CONTROL SECTION FIXES ===== */
+@media (max-width: 767px) {
+  /* Report controls container */
+  .report-controls-container {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .report-header h2 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  
+  /* Make controls stack vertically */
+  .controls-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px;
+  }
+  
+  .date-filter-wrapper,
+  .search-box-wrapper,
+  .actions-wrapper {
+    width: 100%;
+    margin-bottom: 0;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  
+  .form-label {
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  /* Fix date and search inputs */
+  .date-controls, 
+  .search-box-wrapper .input-group {
+    width: 100%;
+    margin-bottom: 0;
+  }
+  
+  .date-controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  /* Action buttons grid */
+  .actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .actions-grid .btn {
+    min-height: 40px;
+  }
+  
+  .actions-grid .btn-group {
+    grid-column: span 2;
+    margin-top: 8px;
+  }
+  
+  /* Form elements sizing */
+  .form-control, 
+  .form-select, 
+  .input-group-text {
+    font-size: 16px; /* Prevents zoom on iOS */
+    height: 40px;
+  }
+  
+  .form-control:focus,
+  .form-select:focus {
+    box-shadow: none;
+  }
+}
+
+/* ===== FORM & CARD FIXES ===== */
+@media (max-width: 767px) {
+  /* Search history card */
+  .search-history-card .card-body {
+    padding: 16px;
+  }
+  
+  .search-history-card .row {
+    margin: 0 -4px;
+  }
+  
+  .search-history-card .col-md-5,
+  .search-history-card .col-md-3,
+  .search-history-card .col-12 {
+    padding: 0 4px;
+    margin-bottom: 8px;
+  }
+  
+  /* Center the search button on mobile */
+  .search-history-card .col-12 {
+    text-align: center;
+  }
+  
+  .search-history-card .btn-lg {
+    display: inline-flex;
+    margin: 0 auto;
+    width: auto;
+    min-width: 200px;
+  }
+  
+  /* Modals */
+  .modal-dialog {
+    margin: 10px;
+    width: auto;
+    max-width: calc(100% - 20px);
+  }
+  
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 12px;
+  }
+  
+  .modal-title {
+    font-size: 16px;
+  }
+  
+  /* Dropdown menu */
+  .dropdown-menu {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90%;
+    max-width: 280px;
+    margin: 0 !important;
+    z-index: 1030;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  
+  .dropdown-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1020;
+    display: none;
+  }
+  
+  .dropdown.show .dropdown-backdrop {
+    display: block;
+  }
+}
+
+/* ===== TABLET STYLES ===== */
+@media (min-width: 768px) and (max-width: 991px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .controls-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .date-filter-wrapper,
+  .search-box-wrapper,
+  .actions-wrapper {
+    margin-bottom: 0;
+  }
+  
+  .date-controls {
+    grid-template-columns: 2fr 1fr;
+  }
+  
+  .actions-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  
+  .actions-grid .btn-group {
+    grid-column: span 4;
+  }
+}
+
+/* ===== DESKTOP STYLES ===== */
+@media (min-width: 992px) {
+  .container {
+    padding: 0 24px;
+  }
+  
+  .controls-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  
+  .date-filter-wrapper,
+  .search-box-wrapper,
+  .actions-wrapper {
+    padding: 20px;
+    height: 100%;
+  }
+  
+  .date-controls {
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+  }
+  
+  /* Table spacing */
+  .table-responsive {
+    padding: 15px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 15px;
+  }
+}
+
+/* Desktop styles - also add shadow for consistency */
+@media (min-width: 768px) {
+  .table tbody tr {
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: white;
+  }
+  
+  .table tbody tr.report-card:hover {
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  
+  .table tbody tr.show-more-row,
+  .table tbody tr.show-less-row {
+    background: transparent;
+  }
+  
+  .table tbody tr.show-more-row:hover,
+  .table tbody tr.show-less-row:hover {
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+/* Fix dropdown show backdrop */
+.dropdown.show .dropdown-backdrop {
+  display: block;
+}

@@ -1,0 +1,22 @@
+# Node modules (jika menggunakan Node.js)
+node_modules/
+
+# Log file dan direktori log
+*.log
+logs/
+
+# File sementara
+*.tmp
+*.swp
+
+# Build atau direktori distribusi
+/dist
+/build
+
+# Setting IDE/editor
+.vscode/
+.idea/
+
+# Sistem operasi (macOS, Windows)
+.DS_Store
+Thumbs.db
