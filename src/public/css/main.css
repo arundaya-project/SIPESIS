@@ -3,15 +3,15 @@
 /* ============= VARIABLES ============= */
 :root {
   /* Colors */
-  --primary: #4F46E5;
-  --primary-dark: #3730A3;
-  --secondary: #6B7280;
-  --success: #10B981;
-  --warning: #F59E0B;
-  --danger: #EF4444;
-  --bg: #F8FAFC;
-  --white: #FFFFFF;
-  
+  --primary: #4f46e5;
+  --primary-dark: #3730a3;
+  --secondary: #6b7280;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --bg: #f8fafc;
+  --white: #ffffff;
+
   /* Spacing */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -20,17 +20,22 @@
   --space-6: 1.5rem;
   --space-8: 2rem;
   --space-12: 3rem;
-  
+
   /* Border Radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-full: 9999px;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  /* Animation */
+  --transition-fast: 0.15s ease-out;
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 /* ============= RESET & BASE ============= */
@@ -40,12 +45,28 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   background: var(--bg);
   color: #1e293b;
   line-height: 1.5;
   min-height: 100vh;
+  /* Prevent content shifts and provide smooth scrolling */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improve rendering performance */
+img,
+svg {
+  will-change: transform;
 }
 
 /* ============= LAYOUT ============= */
@@ -71,41 +92,92 @@ body {
   .container {
     padding: 0 var(--space-6);
   }
-  
+
   .main-wrapper {
     padding: var(--space-6) 0;
   }
 }
 
 /* ============= UTILITY CLASSES ============= */
-.d-none { display: none !important; }
-.d-flex { display: flex; }
-.d-grid { display: grid; }
-.flex-col { flex-direction: column; }
-.items-center { align-items: center; }
-.justify-between { justify-content: space-between; }
-.gap-2 { gap: var(--space-2); }
-.gap-4 { gap: var(--space-4); }
+.d-none {
+  display: none !important;
+}
+.d-flex {
+  display: flex;
+}
+.d-grid {
+  display: grid;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-2 {
+  gap: var(--space-2);
+}
+.gap-4 {
+  gap: var(--space-4);
+}
 
-.mb-2 { margin-bottom: var(--space-2); }
-.mb-3 { margin-bottom: var(--space-3); }
-.mb-4 { margin-bottom: var(--space-4); }
-.mb-6 { margin-bottom: var(--space-6); }
+.mb-2 {
+  margin-bottom: var(--space-2);
+}
+.mb-3 {
+  margin-bottom: var(--space-3);
+}
+.mb-4 {
+  margin-bottom: var(--space-4);
+}
+.mb-6 {
+  margin-bottom: var(--space-6);
+}
 
-.mt-2 { margin-top: var(--space-2); }
-.mt-4 { margin-top: var(--space-4); }
+.mt-2 {
+  margin-top: var(--space-2);
+}
+.mt-4 {
+  margin-top: var(--space-4);
+}
 
-.p-0 { padding: 0; }
-.p-4 { padding: var(--space-4); }
+.p-0 {
+  padding: 0;
+}
+.p-4 {
+  padding: var(--space-4);
+}
 
-.py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
-.py-6 { padding-top: var(--space-6); padding-bottom: var(--space-6); }
+.py-4 {
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-4);
+}
+.py-6 {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+}
 
-.text-center { text-align: center; }
+.text-center {
+  text-align: center;
+}
 
 @media (min-width: 768px) {
-  .d-md-block { display: block !important; }
-  .d-md-none { display: none !important; }
+  .d-md-block {
+    display: block !important;
+  }
+  .d-md-none {
+    display: none !important;
+  }
+}
+
+/* Hardware acceleration class */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* ============= NAVBAR ============= */
@@ -116,6 +188,10 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
+  /* Add hardware acceleration to navbar */
+  transform: translateZ(0);
+  will-change: transform;
+  transition: transform var(--transition-normal);
 }
 
 .navbar-brand {
@@ -128,7 +204,7 @@ body {
   color: rgba(255, 255, 255, 0.8) !important;
   padding: var(--space-2) var(--space-4) !important;
   border-radius: var(--radius-md);
-  transition: all 0.2s;
+  transition: all var(--transition-normal);
 }
 
 .nav-link:hover {
@@ -146,9 +222,14 @@ body {
   background: var(--white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform var(--transition-normal),
+    box-shadow var(--transition-normal);
   border: none;
   overflow: hidden;
+  /* Improve rendering performance */
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-header {
@@ -182,6 +263,8 @@ body {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
   outline: none;
+  /* Smooth transition when focusing inputs */
+  transition: all var(--transition-normal);
 }
 
 .form-label {
@@ -223,10 +306,13 @@ body {
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-md);
   font-weight: 500;
-  transition: all 0.2s;
+  transition: all var(--transition-normal);
   border: none;
   cursor: pointer;
   min-height: 42px;
+  /* Optimize button rendering */
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
 }
 
 .btn i {
@@ -300,7 +386,10 @@ body {
 }
 
 .table tbody tr {
-  transition: all 0.2s;
+  transition: all var(--transition-normal);
+  transform: translateZ(0);
+  will-change: transform, background-color;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .table tbody tr:hover {
@@ -376,7 +465,11 @@ body {
 
 .footer .credit {
   padding: var(--space-2) var(--space-4);
-  background: linear-gradient(120deg, rgba(79, 70, 229, 0.1), rgba(147, 51, 234, 0.1));
+  background: linear-gradient(
+    120deg,
+    rgba(79, 70, 229, 0.1),
+    rgba(147, 51, 234, 0.1)
+  );
   border-radius: var(--radius-full);
   font-weight: 600;
   color: var(--primary);
@@ -405,4 +498,225 @@ body {
 .modal-footer {
   border-top: 1px solid #f1f5f9;
   padding: var(--space-4);
+}
+
+/* ============= LOADING OVERLAY ============= */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+}
+
+.loading-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(79, 70, 229, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s linear infinite;
+  will-change: transform;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============= SMOOTH ANIMATIONS ============= */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s var(--transition-smooth) forwards;
+  will-change: transform, opacity;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s var(--transition-smooth) forwards;
+  will-change: opacity;
+}
+
+/* ============= TOAST NOTIFICATIONS ============= */
+.toast-container {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 400px;
+  width: calc(100% - 32px);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.21, 1.02, 0.73, 1);
+  pointer-events: auto;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast.hide {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.toast.success {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.95),
+    rgba(16, 185, 129, 0.85)
+  );
+}
+
+.toast.error {
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.95),
+    rgba(239, 68, 68, 0.85)
+  );
+}
+
+.toast.warning {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.95),
+    rgba(245, 158, 11, 0.85)
+  );
+}
+
+.toast.info {
+  background: linear-gradient(
+    135deg,
+    rgba(79, 70, 229, 0.95),
+    rgba(79, 70, 229, 0.85)
+  );
+}
+
+.toast-icon {
+  font-size: 20px;
+  color: white;
+}
+
+.toast-content {
+  flex: 1;
+}
+
+.toast-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: white;
+}
+
+.toast-message {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .toast-container {
+    bottom: 20px;
+  }
+}
+
+/* ============= PERFORMANCE OPTIMIZATIONS ============= */
+/* Hardware acceleration for smooth animations */
+.hw-accelerated {
+  backface-visibility: hidden;
+  perspective: 1000;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Optimize repaints */
+.optimize-paint {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  contain: content;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Reduce layout shifts */
+.table-wrapper {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Optimize transitions */
+.optimize-transition {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add smooth page transitions */
+.page-transition {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: pageEnter 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes pageEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
